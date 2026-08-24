@@ -318,10 +318,11 @@ export function groupScores(
   groupBy: (e: Evaluation) => { key: string; label: string; extra?: Partial<GroupScore> },
   reference: number | null,
 ): GroupScore[] {
-  const groups = new Map<string, { label: string; extra?: Partial<GroupScore>; ids: string[] }>();
+  type Acc = { label: string; extra: Partial<GroupScore> | undefined; ids: string[] };
+  const groups = new Map<string, Acc>();
   for (const e of evals) {
     const g = groupBy(e);
-    const cur = groups.get(g.key) ?? { label: g.label, extra: g.extra, ids: [] };
+    const cur: Acc = groups.get(g.key) ?? { label: g.label, extra: g.extra, ids: [] };
     cur.ids.push(e.id);
     groups.set(g.key, cur);
   }

@@ -1,6 +1,6 @@
 import { RotateCcw } from "lucide-react";
 import { useFilters } from "@/lib/mystery/filter-context";
-import type { GlobalFilters } from "@/lib/mystery/calculations";
+import type { GlobalFilters as GlobalFiltersShape } from "@/lib/mystery/calculations";
 
 function FilterSelect({
   label,
@@ -36,7 +36,7 @@ function FilterSelect({
 
 export function GlobalFilters() {
   const { filters, setFilter, clearFilters, hasFilters, options } = useFilters();
-  const keys: { key: keyof GlobalFilters; label: string; list: string[] }[] = [
+  const keys: { key: keyof GlobalFiltersShape; label: string; list: string[] }[] = [
     { key: "periodo", label: "Periodo", list: options.periodos },
     { key: "concesionaria", label: "Concesionaria", list: options.concesionarias },
     { key: "marca", label: "Marca", list: options.marcas },

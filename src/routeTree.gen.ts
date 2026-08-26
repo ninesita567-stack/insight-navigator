@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BenchmarkRouteImport } from './routes/benchmark'
+import { Route as ConcesionariasRouteImport } from './routes/concesionarias'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,31 +23,40 @@ const BenchmarkRoute = BenchmarkRouteImport.update({
   path: '/benchmark',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ConcesionariasRoute = ConcesionariasRouteImport.update({
+  id: '/concesionarias',
+  path: '/concesionarias',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/benchmark': typeof BenchmarkRoute
+  '/concesionarias': typeof ConcesionariasRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/benchmark': typeof BenchmarkRoute
+  '/concesionarias': typeof ConcesionariasRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/benchmark': typeof BenchmarkRoute
+  '/concesionarias': typeof ConcesionariasRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/benchmark'
+  fullPaths: '/' | '/benchmark' | '/concesionarias'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/benchmark'
-  id: '__root__' | '/' | '/benchmark'
+  to: '/' | '/benchmark' | '/concesionarias'
+  id: '__root__' | '/' | '/benchmark' | '/concesionarias'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BenchmarkRoute: typeof BenchmarkRoute
+  ConcesionariasRoute: typeof ConcesionariasRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -65,12 +75,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BenchmarkRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/concesionarias': {
+      id: '/concesionarias'
+      path: '/concesionarias'
+      fullPath: '/concesionarias'
+      preLoaderRoute: typeof ConcesionariasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BenchmarkRoute: BenchmarkRoute,
+  ConcesionariasRoute: ConcesionariasRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
